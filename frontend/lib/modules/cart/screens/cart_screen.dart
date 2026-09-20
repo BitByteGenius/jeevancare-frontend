@@ -104,6 +104,12 @@ class _CartScreenState extends State<CartScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    CartController.to.seedDefaultCartIfEmpty();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final cartController = CartController.to;
 
@@ -877,7 +883,9 @@ class _CartScreenState extends State<CartScreen> {
                     const SizedBox(height: 4),
 
                     // Price
-                    Row(
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 4,
                       children: [
                         Text(
                           '₹${product.price.toInt()}',
@@ -887,7 +895,6 @@ class _CartScreenState extends State<CartScreen> {
                             color: Color(0xFF0F172A),
                           ),
                         ),
-                        const SizedBox(width: 4),
                         Text(
                           '₹${product.mrp.toInt()}',
                           style: const TextStyle(
@@ -896,7 +903,6 @@ class _CartScreenState extends State<CartScreen> {
                             decoration: TextDecoration.lineThrough,
                           ),
                         ),
-                        const SizedBox(width: 4),
                         Text(
                           '${product.discountPercent}% off',
                           style: const TextStyle(

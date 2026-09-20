@@ -23,6 +23,8 @@ class CategoryProductsScreen extends StatefulWidget {
 
 class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
   int _selectedSubcategoryIndex = 0;
+  String _selectedSort = 'Relevance';
+
   final List<String> _skinSubcategories = [
     'Face wash',
     'Top Picks',
@@ -37,9 +39,20 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
     final cartController = CartController.to;
     final isSkinCare = widget.categoryTitle.toLowerCase().contains('skin') ||
         widget.categoryTitle.toLowerCase().contains('face');
-    final products = isSkinCare
-        ? PharmacyData.skinCareProducts
-        : PharmacyData.periodPmsProducts;
+    var rawProducts = isSkinCare
+        ? List<ProductModel>.from(PharmacyData.skinCareProducts)
+        : List<ProductModel>.from(PharmacyData.periodPmsProducts);
+
+    if (_selectedSort == 'Average customer rating') {
+      rawProducts.sort((a, b) => b.rating.compareTo(a.rating));
+    } else if (_selectedSort == 'Price: low to high') {
+      rawProducts.sort((a, b) => a.price.compareTo(b.price));
+    } else if (_selectedSort == 'Price: high to low') {
+      rawProducts.sort((a, b) => b.price.compareTo(a.price));
+    } else if (_selectedSort == 'Discount') {
+      rawProducts.sort((a, b) => (b.discountPercent).compareTo(a.discountPercent));
+    }
+    final products = rawProducts;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -118,9 +131,25 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    _buildFilterPill(icon: Icons.swap_vert_rounded, label: 'Sort'),
+                    _buildFilterPill(
+                      icon: Icons.swap_vert_rounded,
+                      label: _selectedSort == 'Relevance' ? 'Sort' : _selectedSort,
+                      isSelected: _selectedSort != 'Relevance',
+                      onTap: () => _showSortBottomSheet(context),
+                    ),
                     const SizedBox(width: 8),
-                    _buildFilterPill(icon: Icons.tune_rounded, label: 'All filters'),
+                    _buildFilterPill(
+                      icon: Icons.tune_rounded,
+                      label: 'All filters',
+                      onTap: () {
+                        Get.rawSnackbar(
+                          messageText: const Text('Filters panel ready for backend integration', style: TextStyle(color: Colors.white)),
+                          backgroundColor: AppColors.textPrimary,
+                          borderRadius: 8,
+                          margin: const EdgeInsets.all(16),
+                        );
+                      },
+                    ),
                     if (isSkinCare) ...[
                       const SizedBox(width: 8),
                       _buildFilterPill(label: 'Acne Control Cleansers'),
@@ -299,31 +328,164 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
     );
   }
 
-  Widget _buildFilterPill({IconData? icon, required String label}) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFFCBD5E1)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 11.5,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF334155),
-            ),
+  Widget _buildFilterPill({
+    IconData? icon,
+    required String label,
+    bool isSelected = false,
+    VoidCallback? onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFF0F172A) : Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(
+            color: isSelected ? const Color(0xFF0F172A) : const Color(0xFFCBD5E1),
           ),
-          if (icon != null) ...[
-            const SizedBox(width: 4),
-            Icon(icon, size: 14, color: const Color(0xFF475569)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 11.5,
+                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
+                color: isSelected ? Colors.white : const Color(0xFF334155),
+              ),
+            ),
+            if (icon != null) ...[
+              const SizedBox(width: 4),
+              Icon(
+                icon,
+                size: 14,
+                color: isSelected ? Colors.white : const Color(0xFF475569),
+              ),
+            ],
           ],
-        ],
+        ),
       ),
+    );
+  }
+
+  // Sort Modal Bottom Sheet (Screenshot 5)
+  void _showSortBottomSheet(BuildContext context) {
+    const sortOptions = [
+      'Relevance',
+      'Average customer rating',
+      'Price: low to high',
+      'Price: high to low',
+      'Discount',
+    ];
+
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) {
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              padding: EdgeInsets.fromLTRB(20, 16, 20, MediaQuery.of(context).padding.bottom + 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Header Row: "Sort" + Close Button
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Sort',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                          color: Color(0xFF0F172A),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () => Navigator.of(ctx).pop(),
+                        child: Container(
+                          width: 32,
+                          height: 32,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF1F5F9),
+                            shape: BoxShape.circle,
+                            border: Border.all(color: const Color(0xFFE2E8F0)),
+                          ),
+                          child: const Icon(Icons.close, size: 18, color: Color(0xFF0F172A)),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  // Radio Options List (Screenshot 5)
+                  ...sortOptions.map((option) {
+                    final isSelected = _selectedSort == option;
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          _selectedSort = option;
+                        });
+                        Navigator.of(ctx).pop();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        child: Row(
+                          children: [
+                            // Custom Coral/Red Radio Button
+                            Container(
+                              width: 22,
+                              height: 22,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: isSelected ? const Color(0xFFFF5247) : const Color(0xFF94A3B8),
+                                  width: isSelected ? 2.5 : 1.5,
+                                ),
+                              ),
+                              child: isSelected
+                                  ? Center(
+                                      child: Container(
+                                        width: 10,
+                                        height: 10,
+                                        decoration: const BoxDecoration(
+                                          color: Color(0xFFFF5247),
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                    )
+                                  : null,
+                            ),
+                            const SizedBox(width: 14),
+                            Text(
+                              option,
+                              style: TextStyle(
+                                fontSize: 14.5,
+                                fontWeight: isSelected ? FontWeight.w800 : FontWeight.w500,
+                                color: const Color(0xFF0F172A),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
