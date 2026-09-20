@@ -147,9 +147,45 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
 
+              // Lab Tests & Packages Segment (Screenshot 2)
+              const SliverToBoxAdapter(
+                child: LabTestsPackageExplorer(),
+              ),
+
+              // Product Row: Top Skin Care Products (Screenshot 2)
+              SliverToBoxAdapter(
+                child: Obx(
+                  () => ProductHorizontalList(
+                    title: 'Top skin care products',
+                    showAdBadge: true,
+                    products: controller.topSkinCare,
+                  ),
+                ),
+              ),
+
+              // Product Row: Deals of the Day (Screenshot 3)
+              SliverToBoxAdapter(
+                child: Obx(
+                  () => ProductHorizontalList(
+                    title: 'Deals of the day',
+                    products: controller.dealsOfTheDay,
+                  ),
+                ),
+              ),
+
               // Pet Care Section (Screenshot 3 & 4)
               const SliverToBoxAdapter(
                 child: PetCareSection(),
+              ),
+
+              // Product Row: Pet Care Deals (Screenshot 3)
+              SliverToBoxAdapter(
+                child: Obx(
+                  () => ProductHorizontalList(
+                    title: 'Pet care deals',
+                    products: controller.petCareDeals,
+                  ),
+                ),
               ),
 
               // Gut Care Assessment Banner (Screenshot 4)

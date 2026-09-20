@@ -30,6 +30,9 @@ class HomeController extends GetxController {
   final RxList<ProductModel> intimateHygiene = <ProductModel>[].obs;
   final RxList<ProductModel> hormonalSupport = <ProductModel>[].obs;
   final RxList<ProductModel> menstrualCare = <ProductModel>[].obs;
+  final RxList<ProductModel> topSkinCare = <ProductModel>[].obs;
+  final RxList<ProductModel> dealsOfTheDay = <ProductModel>[].obs;
+  final RxList<ProductModel> petCareDeals = <ProductModel>[].obs;
 
   Timer? _searchHintTimer;
 
@@ -67,6 +70,9 @@ class HomeController extends GetxController {
         _repository.getProductsByCategory('intimate_hygiene'),
         _repository.getProductsByCategory('hormonal_support'),
         _repository.getProductsByCategory('menstrual_care'),
+        _repository.getProductsByCategory('skin_care'),
+        _repository.getProductsByCategory('deals_of_the_day'),
+        _repository.getProductsByCategory('pet_care_deals'),
       ]);
 
       serviceTabs.assignAll(results[0] as List<ServiceTabModel>);
@@ -78,6 +84,9 @@ class HomeController extends GetxController {
       intimateHygiene.assignAll(results[6] as List<ProductModel>);
       hormonalSupport.assignAll(results[7] as List<ProductModel>);
       menstrualCare.assignAll(results[8] as List<ProductModel>);
+      topSkinCare.assignAll(results[9] as List<ProductModel>);
+      dealsOfTheDay.assignAll(results[10] as List<ProductModel>);
+      petCareDeals.assignAll(results[11] as List<ProductModel>);
     } catch (e) {
       // Data load failure fallback
     } finally {

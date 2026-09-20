@@ -49,6 +49,12 @@ class MockHomeRepository implements HomeRepository {
         return MockHomeData.menstrualCare;
       case 'intimate_hygiene':
         return MockHomeData.intimateHygiene;
+      case 'skin_care':
+        return MockHomeData.topSkinCare;
+      case 'deals_of_the_day':
+        return MockHomeData.dealsOfTheDay;
+      case 'pet_care_deals':
+        return MockHomeData.petCareDeals;
       default:
         return MockHomeData.proteinSupplements;
     }
