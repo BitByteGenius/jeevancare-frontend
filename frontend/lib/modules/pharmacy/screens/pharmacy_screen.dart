@@ -12,11 +12,13 @@ import '../widgets/pharmacy_popular_categories_grid.dart';
 import '../widgets/pet_care_concern_section.dart';
 import '../widgets/pet_top_brands_section.dart';
 import '../widgets/pharmacy_spotlight_section.dart';
+import '../widgets/diet_nutrition_section.dart';
 import '../widgets/pet_arrivals_section.dart';
 import '../widgets/pharmacy_survey_banner.dart';
 import '../widgets/womens_care_section.dart';
 import '../widgets/delivering_care_section.dart';
 import '../widgets/glp1_weight_management_banner.dart';
+import '../widgets/pharmacy_trust_footer.dart';
 
 class PharmacyScreen extends StatelessWidget {
   const PharmacyScreen({super.key});
@@ -95,32 +97,42 @@ class PharmacyScreen extends StatelessWidget {
                 child: PharmacySpotlightSection(),
               ),
 
-              // 11. Pet Arrivals Section ("Get your paws on latest arrivals", Screenshot 3)
+              // 11. Diet & Nutrition Section (Screenshot 1)
+              const SliverToBoxAdapter(
+                child: DietNutritionSection(),
+              ),
+
+              // 12. Pet Arrivals Section ("Get your paws on latest arrivals", Screenshot 3)
               const SliverToBoxAdapter(
                 child: PetArrivalsSection(),
               ),
 
-              // 12. Medical Insights / Antibiotics Survey Banner (Screenshot 3)
+              // 13. Medical Insights / Antibiotics Survey Banner (Screenshot 3)
               const SliverToBoxAdapter(
                 child: PharmacySurveyBanner(),
               ),
 
-              // 13. Nurture your well-being with Women's Care Essentials (Screenshot 4)
+              // 14. Nurture your well-being with Women's Care Essentials (Screenshot 4)
               const SliverToBoxAdapter(
                 child: WomensCareSection(),
               ),
 
-              // 14. Delivering care for you (Editorial story photo cards, Screenshot 4)
+              // 15. Delivering care for you (Editorial story photo cards, Screenshot 4)
               const SliverToBoxAdapter(
                 child: DeliveringCareSection(),
               ),
 
-              // 15. Blockbuster GLP-1 Weight Management Solutions Banner (Screenshot 4)
+              // 16. Blockbuster GLP-1 Weight Management Solutions Banner (Screenshot 4)
               const SliverToBoxAdapter(
                 child: Glp1WeightManagementBanner(),
               ),
 
-              // 16. Bottom spacing for navigation bar
+              // 17. Trust Badges, Mission & Delivery Character Footer (Screenshot 3)
+              const SliverToBoxAdapter(
+                child: PharmacyTrustFooter(),
+              ),
+
+              // 18. Bottom spacing for navigation bar
               const SliverToBoxAdapter(
                 child: SizedBox(height: 36),
               ),

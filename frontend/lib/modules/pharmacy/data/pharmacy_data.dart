@@ -310,6 +310,55 @@ class PharmacyData {
     ),
   ];
 
+  // Diet & nutrition products (Screenshot 1)
+  static const List<ProductModel> dietNutritionProducts = [
+    ProductModel(
+      id: 'diet_1',
+      name: 'RiteBite Max Protein Daily 10 gm Protein Bar Choco Classic',
+      packSize: '6 bars',
+      rating: 4.3,
+      ratingCount: 520,
+      imageUrl: 'https://images.unsplash.com/photo-1622484216249-f4fb95ddc8b5?auto=format&fit=crop&w=400&q=80',
+      price: 480,
+      mrp: 480,
+      discountPercent: 0,
+      deliveryEta: 'Get by Fri, 25 Sep',
+      carePlanPrice: 432,
+      carePlanThreshold: 1200,
+      category: 'diet_nutrition',
+    ),
+    ProductModel(
+      id: 'diet_2',
+      name: 'Tata Soulfull 0% Added Sugar Millet Muesli Super Saver Pack',
+      packSize: '700 gm Muesli',
+      rating: 4.2,
+      ratingCount: 310,
+      imageUrl: 'https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&w=400&q=80',
+      price: 379,
+      mrp: 479.6,
+      discountPercent: 21,
+      deliveryEta: 'Get by Fri, 25 Sep',
+      carePlanPrice: 341,
+      carePlanThreshold: 1200,
+      category: 'diet_nutrition',
+    ),
+    ProductModel(
+      id: 'diet_3',
+      name: 'Delight Almonds Roasted & Salted Healthy Snack',
+      packSize: '200 gm',
+      rating: 4.3,
+      ratingCount: 180,
+      imageUrl: 'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&w=400&q=80',
+      price: 395,
+      mrp: 450,
+      discountPercent: 12,
+      deliveryEta: 'Get by Fri, 25 Sep',
+      carePlanPrice: 355,
+      carePlanThreshold: 1200,
+      category: 'diet_nutrition',
+    ),
+  ];
+
   // In the spotlight [Ad] products (Screenshot 1)
   static const List<ProductModel> spotlightProducts = [
     ProductModel(
