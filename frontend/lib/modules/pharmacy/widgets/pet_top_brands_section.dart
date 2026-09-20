@@ -39,7 +39,7 @@ class PetTopBrandsSection extends StatelessWidget {
               final brand = brands[index];
               return InkWell(
                 onTap: () {},
-                shape: const CircleBorder(),
+                customBorder: const CircleBorder(),
                 child: Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,

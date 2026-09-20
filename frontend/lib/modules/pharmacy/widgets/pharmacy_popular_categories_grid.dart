@@ -66,7 +66,7 @@ class PharmacyPopularCategoriesGrid extends StatelessWidget {
                           ),
                           child: Center(
                             child: CachedNetworkImage(
-                              imageUrl: category.iconUrl,
+                              imageUrl: category.iconUrl ?? '',
                               fit: BoxFit.contain,
                               placeholder: (context, url) => Center(
                                 child: Container(

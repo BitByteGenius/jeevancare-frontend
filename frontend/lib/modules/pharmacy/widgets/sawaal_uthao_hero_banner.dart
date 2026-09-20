@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../app/theme/app_colors.dart';
 import '../../../app/theme/app_dimensions.dart';
 import '../../../app/theme/app_typography.dart';
 
@@ -174,7 +173,7 @@ class SawaalUthaoHeroBanner extends StatelessWidget {
                         Expanded(
                           child: Text(
                             "Search for 'shampoo'",
-                            style: AppTypography.body2.copyWith(
+                            style: AppTypography.bodyMedium.copyWith(
                               color: const Color(0xFF475569),
                               fontSize: 14,
                             ),

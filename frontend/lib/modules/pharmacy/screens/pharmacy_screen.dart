@@ -1,84 +1,132 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../app/theme/app_colors.dart';
-import '../../../app/theme/app_dimensions.dart';
-import '../../../app/theme/app_typography.dart';
-import '../widgets/order_medicines_card.dart';
+import '../../home/widgets/location_header.dart';
+import '../../home/widgets/service_tab_bar.dart';
+import '../controllers/pharmacy_controller.dart';
+import '../widgets/pharmacy_search_header.dart';
+import '../widgets/sawaal_uthao_hero_banner.dart';
+import '../widgets/pharmacy_quick_actions.dart';
+import '../widgets/pharmacy_promo_banner.dart';
+import '../widgets/pharmacy_popular_categories_grid.dart';
+import '../widgets/pet_care_concern_section.dart';
+import '../widgets/pet_top_brands_section.dart';
+import '../widgets/pharmacy_spotlight_section.dart';
+import '../widgets/pet_arrivals_section.dart';
+import '../widgets/pharmacy_survey_banner.dart';
+import '../widgets/womens_care_section.dart';
+import '../widgets/delivering_care_section.dart';
+import '../widgets/glp1_weight_management_banner.dart';
 
 class PharmacyScreen extends StatelessWidget {
   const PharmacyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Ensure PharmacyController is initialized
+    if (!Get.isRegistered<PharmacyController>()) {
+      Get.put(PharmacyController());
+    }
+
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const Text('JeevanCare Pharmacy', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17)),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          const OrderMedicinesCard(),
-          const SizedBox(height: 16),
-          _buildFeatureTile(
-            icon: Icons.flash_on_rounded,
-            title: 'Express 2-Hour Delivery',
-            subtitle: 'Guaranteed delivery from local certified pharmacies',
-            color: AppColors.primary,
-          ),
-          const SizedBox(height: 10),
-          _buildFeatureTile(
-            icon: Icons.verified_user_rounded,
-            title: '100% Genuine Medicines',
-            subtitle: 'Directly sourced from verified pharma manufacturers',
-            color: AppColors.secondary,
-          ),
-          const SizedBox(height: 10),
-          _buildFeatureTile(
-            icon: Icons.percent_rounded,
-            title: 'Up to 25% Off Every Order',
-            subtitle: 'Best price guarantee on generics and branded drugs',
-            color: AppColors.ratingGreen,
-          ),
-        ],
-      ),
-    );
-  }
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await Future.delayed(const Duration(milliseconds: 600));
+          },
+          color: AppColors.primary,
+          child: CustomScrollView(
+            physics: const AlwaysScrollableScrollPhysics(
+              parent: BouncingScrollPhysics(),
+            ),
+            slivers: [
+              // 1. Top Location Header (Buxar, Profile, Cart)
+              const SliverToBoxAdapter(
+                child: LocationHeader(),
+              ),
 
-  Widget _buildFeatureTile({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required Color color,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: AppDimensions.rounded12,
-        border: Border.all(color: AppColors.borderLight),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(icon, color: color, size: 22),
+              // 2. Service Tab Bar with "Pharmacy" Active (Black underline)
+              const SliverToBoxAdapter(
+                child: ServiceTabBar(activeTabId: 'pharmacy'),
+              ),
+
+              const SliverToBoxAdapter(
+                child: Divider(height: 1, thickness: 1, color: AppColors.divider),
+              ),
+
+              // 3. Search Bar with Rotating Hint & "Categories" dark pill button
+              const SliverToBoxAdapter(
+                child: PharmacySearchHeader(),
+              ),
+
+              // 4. "Sawaal Uthao" Genuine Medicine Hero Banner
+              const SliverToBoxAdapter(
+                child: SawaalUthaoHeroBanner(),
+              ),
+
+              // 5. Dual Quick Actions (Order with prescription / Call to order)
+              const SliverToBoxAdapter(
+                child: PharmacyQuickActions(),
+              ),
+
+              // 6. Skincare Offer Banner (Cetaphil 15% Off)
+              const SliverToBoxAdapter(
+                child: PharmacyPromoBanner(),
+              ),
+
+              // 7. Popular Categories (4 columns x 6 rows = 24 categories with badges)
+              const SliverToBoxAdapter(
+                child: PharmacyPopularCategoriesGrid(),
+              ),
+
+              // 8. Pet care - shop by concern (Screenshot 5)
+              const SliverToBoxAdapter(
+                child: PetCareConcernSection(),
+              ),
+
+              // 9. Pet care top brands (3x3 circular logos, Screenshot 1)
+              const SliverToBoxAdapter(
+                child: PetTopBrandsSection(),
+              ),
+
+              // 10. In the spotlight [Ad] (Screenshot 1)
+              const SliverToBoxAdapter(
+                child: PharmacySpotlightSection(),
+              ),
+
+              // 11. Pet Arrivals Section ("Get your paws on latest arrivals", Screenshot 3)
+              const SliverToBoxAdapter(
+                child: PetArrivalsSection(),
+              ),
+
+              // 12. Medical Insights / Antibiotics Survey Banner (Screenshot 3)
+              const SliverToBoxAdapter(
+                child: PharmacySurveyBanner(),
+              ),
+
+              // 13. Nurture your well-being with Women's Care Essentials (Screenshot 4)
+              const SliverToBoxAdapter(
+                child: WomensCareSection(),
+              ),
+
+              // 14. Delivering care for you (Editorial story photo cards, Screenshot 4)
+              const SliverToBoxAdapter(
+                child: DeliveringCareSection(),
+              ),
+
+              // 15. Blockbuster GLP-1 Weight Management Solutions Banner (Screenshot 4)
+              const SliverToBoxAdapter(
+                child: Glp1WeightManagementBanner(),
+              ),
+
+              // 16. Bottom spacing for navigation bar
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 36),
+              ),
+            ],
           ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: AppTypography.subtitle),
-                const SizedBox(height: 2),
-                Text(subtitle, style: AppTypography.caption),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

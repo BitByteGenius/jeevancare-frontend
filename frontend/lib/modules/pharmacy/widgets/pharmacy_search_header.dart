@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../app/theme/app_colors.dart';
-import '../../../app/theme/app_dimensions.dart';
 import '../../../app/theme/app_typography.dart';
 import '../controllers/pharmacy_controller.dart';
 import '../data/pharmacy_data.dart';
@@ -62,7 +61,7 @@ class PharmacySearchHeader extends StatelessWidget {
                           key: ValueKey<int>(controller.searchHintIndex.value),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: AppTypography.body2.copyWith(
+                          style: AppTypography.bodyMedium.copyWith(
                             color: const Color(0xFF334155),
                             fontSize: 13,
                             fontWeight: FontWeight.w500,

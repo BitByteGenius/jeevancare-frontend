@@ -2,10 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../app/theme/app_colors.dart';
 import '../../../app/theme/app_typography.dart';
+import '../../dashboard/controllers/dashboard_controller.dart';
 import '../controllers/home_controller.dart';
 
 class ServiceTabBar extends StatelessWidget {
-  const ServiceTabBar({super.key});
+  final String? activeTabId;
+  final Function(String tabId)? onTabSelected;
+
+  const ServiceTabBar({
+    super.key,
+    this.activeTabId,
+    this.onTabSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +30,25 @@ class ServiceTabBar extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: controller.serviceTabs.map((tab) {
-            final isSelected = controller.selectedServiceTab.value == tab.id;
+            final effectiveSelected = activeTabId ?? controller.selectedServiceTab.value;
+            final isSelected = effectiveSelected == tab.id;
 
             return InkWell(
-              onTap: () => controller.selectServiceTab(tab.id),
+              onTap: () {
+                if (onTabSelected != null) {
+                  onTabSelected!(tab.id);
+                } else {
+                  controller.selectServiceTab(tab.id);
+                  if (Get.isRegistered<DashboardController>()) {
+                    final dash = Get.find<DashboardController>();
+                    if (tab.id == 'pharmacy') {
+                      dash.changeTab(1);
+                    } else if (tab.id == 'for_you') {
+                      dash.changeTab(0);
+                    }
+                  }
+                }
+              },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -71,3 +94,4 @@ class ServiceTabBar extends StatelessWidget {
     );
   }
 }
+
