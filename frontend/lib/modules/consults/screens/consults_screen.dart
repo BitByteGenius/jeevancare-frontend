@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
 import '../../../app/theme/app_colors.dart';
 import '../../../app/theme/app_dimensions.dart';
-import '../../../app/theme/app_typography.dart';
 import '../../home/widgets/location_header.dart';
 import '../../home/widgets/service_tab_bar.dart';
 
@@ -186,7 +185,7 @@ class _ConsultsScreenState extends State<ConsultsScreen> {
   Widget _buildSymptomsHeroBanner() {
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-      height: 165,
+      height: 180,
       decoration: BoxDecoration(
         color: const Color(0xFFE2F1F3),
         borderRadius: AppDimensions.rounded16,
@@ -215,30 +214,31 @@ class _ConsultsScreenState extends State<ConsultsScreen> {
             padding: const EdgeInsets.fromLTRB(16, 14, 135, 14),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 const Text(
                   'Fever, cough, or other\nCOVID symptoms?',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 15,
                     fontWeight: FontWeight.w800,
                     color: Color(0xFF1E3A42),
-                    height: 1.2,
+                    height: 1.15,
                   ),
                 ),
                 const SizedBox(height: 4),
                 const Text(
                   'Consult a qualified doctor online',
                   style: TextStyle(
-                    fontSize: 11.5,
+                    fontSize: 11,
                     color: Color(0xFF475569),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 10),
                 InkWell(
                   onTap: () {},
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                     decoration: BoxDecoration(
                       color: const Color(0xFF2C5963),
                       borderRadius: BorderRadius.circular(6),
@@ -247,7 +247,7 @@ class _ConsultsScreenState extends State<ConsultsScreen> {
                       'Consult Now',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 12,
+                        fontSize: 11.5,
                         fontWeight: FontWeight.w700,
                       ),
                     ),

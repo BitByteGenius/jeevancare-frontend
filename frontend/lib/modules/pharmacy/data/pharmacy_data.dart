@@ -46,6 +46,32 @@ class WomensCareItem {
   });
 }
 
+class SubCategoryItem {
+  final String id;
+  final String title;
+  final String imageUrl;
+
+  const SubCategoryItem({
+    required this.id,
+    required this.title,
+    required this.imageUrl,
+  });
+}
+
+class CategoryGroup {
+  final String id;
+  final String name;
+  final String iconUrl;
+  final List<SubCategoryItem> subcategories;
+
+  const CategoryGroup({
+    required this.id,
+    required this.name,
+    required this.iconUrl,
+    required this.subcategories,
+  });
+}
+
 class EditorialStoryItem {
   final String id;
   final String title;
@@ -359,7 +385,236 @@ class PharmacyData {
     ),
   ];
 
-  // In the spotlight [Ad] products (Screenshot 1)
+  // Category Groups for the Categories Explorer screen (Screenshots 1, 2, 4)
+  static const List<CategoryGroup> categoryGroups = [
+    CategoryGroup(
+      id: 'hair_care',
+      name: 'Hair Care',
+      iconUrl: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=200&q=80',
+      subcategories: [
+        SubCategoryItem(id: 'hair_oils', title: 'Hair Oils', imageUrl: 'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'shampoos', title: 'Shampoos &\nConditioners', imageUrl: 'https://images.unsplash.com/photo-1585751119414-ef2636f8aede?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'hair_serums', title: 'Hair Serums', imageUrl: 'https://images.unsplash.com/photo-1608248597359-216694666f7f?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'hair_creams', title: 'Hair Creams\n& Masks', imageUrl: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'hair_colour', title: 'Hair Colour', imageUrl: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'hair_growth', title: 'Hair Growth\nProducts', imageUrl: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'essential_oils', title: 'Essential Oils', imageUrl: 'https://images.unsplash.com/photo-1608248597359-216694666f7f?auto=format&fit=crop&w=200&q=80'),
+      ],
+    ),
+    CategoryGroup(
+      id: 'fitness_health',
+      name: 'Fitness &\nHealth',
+      iconUrl: 'https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&w=200&q=80',
+      subcategories: [
+        SubCategoryItem(id: 'plant_protein', title: 'Plant Protein', imageUrl: 'https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'mass_gainers', title: 'Mass Gainers', imageUrl: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'pre_post_workout', title: 'Pre/Post\nWorkout', imageUrl: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=200&q=80'),
+      ],
+    ),
+    CategoryGroup(
+      id: 'sexual_wellness',
+      name: 'Sexual\nWellness',
+      iconUrl: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=200&q=80',
+      subcategories: [
+        SubCategoryItem(id: 'condoms', title: 'Condoms', imageUrl: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'lubricants', title: 'Lubricants', imageUrl: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=200&q=80'),
+      ],
+    ),
+    CategoryGroup(
+      id: 'vitamins_nutrition',
+      name: 'Vitamins &\nNutrition',
+      iconUrl: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=200&q=80',
+      subcategories: [
+        SubCategoryItem(id: 'multivitamins', title: 'Multivitamins', imageUrl: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'calcium', title: 'Calcium &\nVitamin D', imageUrl: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=200&q=80'),
+      ],
+    ),
+    CategoryGroup(
+      id: 'immunity_boosters',
+      name: 'Immunity\nBoosters',
+      iconUrl: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=200&q=80',
+      subcategories: [
+        SubCategoryItem(id: 'chyawanprash', title: 'Chyawanprash', imageUrl: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'giloy', title: 'Giloy & Tulsi', imageUrl: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=200&q=80'),
+      ],
+    ),
+    CategoryGroup(
+      id: 'homeopathy',
+      name: 'Homeopathy',
+      iconUrl: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=200&q=80',
+      subcategories: [
+        SubCategoryItem(id: 'homeo_diabetes', title: 'Homeopathy\nDiabetes M...', imageUrl: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'homeo_sexual', title: 'Sexual\nHealth', imageUrl: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'homeo_hair', title: 'Hair Care\nProducts', imageUrl: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'homeo_piles', title: 'Piles and\nFissures', imageUrl: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'homeo_fungal', title: 'Fungal\nInfection', imageUrl: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'homeo_obesity', title: 'Obesity', imageUrl: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'homeo_warts', title: 'Warts', imageUrl: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=200&q=80'),
+      ],
+    ),
+    CategoryGroup(
+      id: 'first_aid',
+      name: 'First Aid',
+      iconUrl: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&w=200&q=80',
+      subcategories: [
+        SubCategoryItem(id: 'antiseptic', title: 'Antiseptic Solution', imageUrl: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'bandages', title: 'Bandages', imageUrl: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=200&q=80'),
+      ],
+    ),
+    CategoryGroup(
+      id: 'pain_relief',
+      name: 'Pain Relief',
+      iconUrl: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=200&q=80',
+      subcategories: [
+        SubCategoryItem(id: 'pain_sprays', title: 'Pain Relief Spray', imageUrl: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'pain_gels', title: 'Pain Gels', imageUrl: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=200&q=80'),
+      ],
+    ),
+    CategoryGroup(
+      id: 'stomach_care',
+      name: 'Stomach Care',
+      iconUrl: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=200&q=80',
+      subcategories: [
+        SubCategoryItem(id: 'antacids', title: 'Antacids', imageUrl: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'digestives', title: 'Digestive Syrups', imageUrl: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=200&q=80'),
+      ],
+    ),
+    CategoryGroup(
+      id: 'nutritional_drinks',
+      name: 'Nutritional\nDrinks',
+      iconUrl: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=200&q=80',
+      subcategories: [
+        SubCategoryItem(id: 'adult_drinks', title: 'Adult Nutrition', imageUrl: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'kids_drinks', title: 'Kids Nutrition', imageUrl: 'https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&w=200&q=80'),
+      ],
+    ),
+    CategoryGroup(
+      id: 'healthy_snacks',
+      name: 'Healthy\nSnacks',
+      iconUrl: 'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&w=200&q=80',
+      subcategories: [
+        SubCategoryItem(id: 'peanut_butter', title: 'Peanut\nButter', imageUrl: 'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'honey', title: 'Honey', imageUrl: 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'cookies', title: 'Cookies', imageUrl: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'edible_seeds', title: 'Edible Seeds\n& Nuts', imageUrl: 'https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'superfoods', title: 'Superfoods', imageUrl: 'https://images.unsplash.com/photo-1622484216249-f4fb95ddc8b5?auto=format&fit=crop&w=200&q=80'),
+        SubCategoryItem(id: 'other_snacks', title: 'Other Snacks', imageUrl: 'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&w=200&q=80'),
+      ],
+    ),
+  ];
+
+  // Period & PMS products (Screenshot 3)
+  static const List<ProductModel> periodPmsProducts = [
+    ProductModel(
+      id: 'pms_1',
+      name: 'Nua Everyday Comfort Panty Liners Long',
+      packSize: '16 pads',
+      rating: 4.8,
+      ratingCount: 120,
+      imageUrl: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=400&q=80',
+      price: 94.1,
+      mrp: 149,
+      discountPercent: 37,
+      deliveryEta: 'Get by Thu, 24 Sep',
+      carePlanPrice: 84.7,
+      carePlanThreshold: 1200,
+      category: 'period_pms',
+    ),
+    ProductModel(
+      id: 'pms_2',
+      name: 'Nua All Night Comfort Sanitary Pads With Disposal Covers XXL',
+      packSize: '10 pads',
+      rating: 4.7,
+      ratingCount: 88,
+      imageUrl: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=400&q=80',
+      price: 194,
+      mrp: 249,
+      discountPercent: 22,
+      deliveryEta: 'Get by Thu, 24 Sep',
+      carePlanPrice: 175,
+      carePlanThreshold: 1200,
+      category: 'period_pms',
+    ),
+    ProductModel(
+      id: 'pms_3',
+      name: 'i-activ. Daily Panty Liners',
+      packSize: '60 pads',
+      rating: 5.0,
+      ratingCount: 14,
+      imageUrl: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=400&q=80',
+      price: 175,
+      mrp: 240,
+      discountPercent: 27,
+      deliveryEta: 'Get by Thu, 24 Sep',
+      carePlanPrice: 158,
+      carePlanThreshold: 1200,
+      category: 'period_pms',
+    ),
+    ProductModel(
+      id: 'pms_4',
+      name: 'Stayfree Dry-Max All Night Ultra-Dry',
+      packSize: '42 pads',
+      rating: 4.5,
+      ratingCount: 461,
+      imageUrl: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80',
+      price: 561,
+      mrp: 660,
+      discountPercent: 15,
+      deliveryEta: 'Get by Thu, 24 Sep',
+      carePlanPrice: 505,
+      carePlanThreshold: 1200,
+      category: 'period_pms',
+    ),
+  ];
+
+  // Skin Care PLP products (Screenshot 5)
+  static const List<ProductModel> skinCareProducts = [
+    ProductModel(
+      id: 'skin_plp_1',
+      name: 'Simple Kind to Skin Facial Wash Refreshing',
+      packSize: '150 ml Face Wash',
+      rating: 4.3,
+      ratingCount: 27,
+      imageUrl: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80',
+      price: 334,
+      mrp: 450,
+      discountPercent: 26,
+      deliveryEta: 'Get by Fri, 25 Sep',
+      carePlanPrice: 301,
+      carePlanThreshold: 1200,
+      category: 'skin_care',
+    ),
+    ProductModel(
+      id: 'skin_plp_2',
+      name: 'Pilgrim A-Beauty Australia Tea Tree Purifying Gel Face Wash',
+      packSize: '100 ml Face Wash',
+      rating: 4.4,
+      ratingCount: 14,
+      imageUrl: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=400&q=80',
+      price: 205,
+      mrp: 250,
+      discountPercent: 18,
+      deliveryEta: 'Get by Thu, 24 Sep',
+      carePlanPrice: 185,
+      carePlanThreshold: 1200,
+      category: 'skin_care',
+    ),
+    ProductModel(
+      id: 'skin_plp_3',
+      name: 'Biluma Advance Skin Brightening Face Wash with Vitamin E | For All...',
+      packSize: '100 ml Face Wash',
+      rating: 4.3,
+      ratingCount: 98,
+      imageUrl: 'https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=400&q=80',
+      price: 381,
+      mrp: 450,
+      discountPercent: 15,
+      deliveryEta: 'Get by Thu, 24 Sep',
+      carePlanPrice: 343,
+      carePlanThreshold: 1200,
+      category: 'skin_care',
+    ),
+  ];
   static const List<ProductModel> spotlightProducts = [
     ProductModel(
       id: 'spotlight_1',

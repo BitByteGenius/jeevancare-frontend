@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../app/theme/app_colors.dart';
 import '../../../app/theme/app_typography.dart';
+import '../../../app/routes/app_routes.dart';
 import '../../dashboard/controllers/dashboard_controller.dart';
 import '../controllers/home_controller.dart';
 
@@ -39,12 +40,21 @@ class ServiceTabBar extends StatelessWidget {
                   onTabSelected!(tab.id);
                 } else {
                   controller.selectServiceTab(tab.id);
-                  if (Get.isRegistered<DashboardController>()) {
-                    final dash = Get.find<DashboardController>();
-                    if (tab.id == 'pharmacy') {
-                      dash.changeTab(1);
-                    } else if (tab.id == 'for_you') {
-                      dash.changeTab(0);
+                  if (tab.id == 'consults') {
+                    if (Get.currentRoute != AppRoutes.consults) {
+                      Get.toNamed(AppRoutes.consults);
+                    }
+                  } else {
+                    if (Get.currentRoute == AppRoutes.consults) {
+                      Get.back();
+                    }
+                    if (Get.isRegistered<DashboardController>()) {
+                      final dash = Get.find<DashboardController>();
+                      if (tab.id == 'pharmacy') {
+                        dash.changeTab(1);
+                      } else if (tab.id == 'for_you') {
+                        dash.changeTab(0);
+                      }
                     }
                   }
                 }

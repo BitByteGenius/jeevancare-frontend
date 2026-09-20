@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:get/get.dart';
 import '../../../app/theme/app_dimensions.dart';
 import '../../../app/theme/app_typography.dart';
 import '../data/pharmacy_data.dart';
+import '../screens/category_products_screen.dart';
 
 class PharmacyPopularCategoriesGrid extends StatelessWidget {
   final Function(String categoryId)? onCategoryTap;
@@ -45,7 +47,15 @@ class PharmacyPopularCategoriesGrid extends StatelessWidget {
             itemBuilder: (context, index) {
               final category = categories[index];
               return InkWell(
-                onTap: () => onCategoryTap?.call(category.id),
+                onTap: () {
+                  if (onCategoryTap != null) {
+                    onCategoryTap!(category.id);
+                  } else {
+                    Get.to(() => CategoryProductsScreen(
+                          categoryTitle: category.title.replaceAll('\n', ' '),
+                        ));
+                  }
+                },
                 borderRadius: AppDimensions.rounded12,
                 child: Column(
                   children: [

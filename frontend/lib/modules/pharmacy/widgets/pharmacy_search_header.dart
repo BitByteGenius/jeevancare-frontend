@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../app/theme/app_colors.dart';
 import '../../../app/theme/app_typography.dart';
+import '../../../app/routes/app_routes.dart';
 import '../controllers/pharmacy_controller.dart';
 import '../data/pharmacy_data.dart';
 
@@ -79,7 +80,7 @@ class PharmacySearchHeader extends StatelessWidget {
 
           // Categories Button (Dark pill with category icon matching screenshot 2, 3, 4, 5)
           InkWell(
-            onTap: () => controller.showCategoriesSheet(context),
+            onTap: () => Get.toNamed(AppRoutes.categories),
             borderRadius: BorderRadius.circular(22),
             child: Container(
               height: 44,
