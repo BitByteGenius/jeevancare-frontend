@@ -37,6 +37,7 @@ void main() {
     // Tap ADD
     await tester.tap(find.text('ADD'));
     await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
 
     // Verify quantity changes to 1
     expect(find.text('1'), findsOneWidget);

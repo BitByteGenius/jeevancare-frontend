@@ -173,18 +173,19 @@ class ProductCard extends StatelessWidget {
                   const SizedBox(height: 6),
 
                   // Price & Discount Row
-                  Row(
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 5,
+                    runSpacing: 2,
                     children: [
                       Text(
                         Formatters.formatCurrency(product.price),
                         style: AppTypography.priceBold.copyWith(fontSize: 13.5),
                       ),
-                      const SizedBox(width: 5),
                       Text(
                         Formatters.formatCurrency(product.mrp),
                         style: AppTypography.priceStrikethrough.copyWith(fontSize: 11),
                       ),
-                      const SizedBox(width: 5),
                       Text(
                         '${product.discountPercent}% off',
                         style: AppTypography.discountText.copyWith(fontSize: 11),
