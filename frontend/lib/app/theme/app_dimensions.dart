@@ -25,6 +25,7 @@ class AppDimensions {
   static const double radiusFull = 999.0;
 
   static BorderRadius get rounded4 => BorderRadius.circular(radius4);
+  static BorderRadius get rounded6 => BorderRadius.circular(radius6);
   static BorderRadius get rounded8 => BorderRadius.circular(radius8);
   static BorderRadius get rounded12 => BorderRadius.circular(radius12);
   static BorderRadius get rounded16 => BorderRadius.circular(radius16);

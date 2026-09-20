@@ -108,22 +108,28 @@ class CategorySection extends StatelessWidget {
                   width: 68,
                   height: 68,
                   decoration: BoxDecoration(
-                    color: Color(category.backgroundColorHex),
+                    color: Color(category.backgroundColorHex ?? 0xFFFFF2EE),
                     borderRadius: AppDimensions.rounded16,
                     border: Border.all(color: AppColors.borderLight),
                   ),
                   padding: const EdgeInsets.all(6),
                   child: ClipRRect(
                     borderRadius: AppDimensions.rounded12,
-                    child: CachedNetworkImage(
-                      imageUrl: category.iconUrl,
-                      fit: BoxFit.cover,
-                      errorWidget: (context, url, error) => const Icon(
-                        Icons.medical_services_outlined,
-                        color: AppColors.primary,
-                        size: 28,
-                      ),
-                    ),
+                    child: category.iconUrl != null
+                        ? CachedNetworkImage(
+                            imageUrl: category.iconUrl!,
+                            fit: BoxFit.cover,
+                            errorWidget: (context, url, error) => const Icon(
+                              Icons.medical_services_outlined,
+                              color: AppColors.primary,
+                              size: 28,
+                            ),
+                          )
+                        : const Icon(
+                            Icons.medical_services_outlined,
+                            color: AppColors.primary,
+                            size: 28,
+                          ),
                   ),
                 ),
                 if (category.badgeText != null)

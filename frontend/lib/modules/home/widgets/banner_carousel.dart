@@ -109,16 +109,17 @@ class BannerCarousel extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(height: 4),
-                                Text(
-                                  banner.subtitle,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: AppTypography.caption.copyWith(
-                                    fontSize: 11,
-                                    color: AppColors.textSecondary,
-                                    height: 1.25,
+                                if (banner.subtitle != null)
+                                  Text(
+                                    banner.subtitle!,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: AppTypography.caption.copyWith(
+                                      fontSize: 11,
+                                      color: AppColors.textSecondary,
+                                      height: 1.25,
+                                    ),
                                   ),
-                                ),
                                 const SizedBox(height: 10),
                                 SizedBox(
                                   height: 28,
@@ -133,7 +134,7 @@ class BannerCarousel extends StatelessWidget {
                                       ),
                                     ),
                                     child: Text(
-                                      banner.ctaText,
+                                      banner.ctaText ?? 'Shop now',
                                       style: const TextStyle(
                                         fontSize: 11,
                                         fontWeight: FontWeight.w700,

@@ -62,22 +62,28 @@ class HealthyFoodsGrid extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Color(food.backgroundColorHex),
+                    color: Color(food.backgroundColorHex ?? 0xFFFFF2EE),
                     borderRadius: AppDimensions.rounded12,
                     border: Border.all(color: AppColors.borderLight),
                   ),
                   padding: const EdgeInsets.all(8),
                   child: ClipRRect(
                     borderRadius: AppDimensions.rounded8,
-                    child: CachedNetworkImage(
-                      imageUrl: food.iconUrl,
-                      fit: BoxFit.cover,
-                      errorWidget: (context, url, error) => const Icon(
-                        Icons.restaurant_rounded,
-                        color: AppColors.primary,
-                        size: 32,
-                      ),
-                    ),
+                    child: food.iconUrl != null
+                        ? CachedNetworkImage(
+                            imageUrl: food.iconUrl!,
+                            fit: BoxFit.cover,
+                            errorWidget: (context, url, error) => const Icon(
+                              Icons.restaurant_rounded,
+                              color: AppColors.primary,
+                              size: 32,
+                            ),
+                          )
+                        : const Icon(
+                            Icons.restaurant_rounded,
+                            color: AppColors.primary,
+                            size: 32,
+                          ),
                   ),
                 ),
                 if (food.badgeText != null)
