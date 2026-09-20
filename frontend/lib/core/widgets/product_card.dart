@@ -6,6 +6,7 @@ import '../../app/theme/app_dimensions.dart';
 import '../../app/theme/app_typography.dart';
 import '../../data/models/product_model.dart';
 import '../../modules/cart/controllers/cart_controller.dart';
+import '../../app/routes/app_routes.dart';
 import '../utils/formatters.dart';
 
 class ProductCard extends StatelessWidget {
@@ -25,7 +26,7 @@ class ProductCard extends StatelessWidget {
     final cartController = CartController.to;
 
     return InkWell(
-      onTap: onTap,
+      onTap: onTap ?? () => Get.toNamed(AppRoutes.productDetails, arguments: product),
       borderRadius: AppDimensions.rounded12,
       child: Container(
         width: width,

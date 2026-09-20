@@ -13,6 +13,7 @@ import '../../modules/profile/screens/profile_screen.dart';
 import '../../modules/consults/screens/consults_screen.dart';
 import '../../modules/pharmacy/screens/categories_screen.dart';
 import '../../modules/pharmacy/screens/category_products_screen.dart';
+import '../../modules/pharmacy/screens/product_details_screen.dart';
 
 class AppPages {
   static const initial = AppRoutes.dashboard;
@@ -43,6 +44,10 @@ class AppPages {
     GetPage(
       name: AppRoutes.categoryProducts,
       page: () => const CategoryProductsScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.productDetails,
+      page: () => const ProductDetailsScreen(),
     ),
     GetPage(
       name: AppRoutes.consults,
