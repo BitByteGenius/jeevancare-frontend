@@ -23,12 +23,15 @@ void main() {
     tester.view.devicePixelRatio = 2.0;
     addTearDown(tester.view.resetPhysicalSize);
 
+    await Get.find<HomeController>().loadHomeData();
+
     await tester.pumpWidget(
       const GetMaterialApp(
         home: PharmacyScreen(),
       ),
     );
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
 
     // Verify Sticky location & Service Tab
     expect(find.text('Buxar'), findsOneWidget);
@@ -51,12 +54,15 @@ void main() {
     tester.view.devicePixelRatio = 2.0;
     addTearDown(tester.view.resetPhysicalSize);
 
+    await Get.find<HomeController>().loadHomeData();
+
     await tester.pumpWidget(
       const GetMaterialApp(
         home: ConsultsScreen(),
       ),
     );
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
 
     expect(find.text('Consults'), findsWidgets);
     expect(find.text('Consult now'), findsOneWidget);

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:get/get.dart';
 import '../../../app/theme/app_dimensions.dart';
 import '../data/pharmacy_data.dart';
+import '../screens/category_products_screen.dart';
 
 class WomensCareSection extends StatelessWidget {
   const WomensCareSection({super.key});
@@ -115,7 +117,11 @@ class WomensCareSection extends StatelessWidget {
             itemBuilder: (context, index) {
               final item = items[index];
               return InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => CategoryProductsScreen(
+                        categoryTitle: item.title.replaceAll('\n', ' '),
+                      ));
+                },
                 borderRadius: AppDimensions.rounded12,
                 child: Column(
                   children: [
