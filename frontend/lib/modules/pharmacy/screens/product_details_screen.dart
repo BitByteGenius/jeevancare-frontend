@@ -7,7 +7,7 @@ import '../../../app/routes/app_routes.dart';
 import '../../../core/utils/formatters.dart';
 import '../../../data/models/product_model.dart';
 import '../../cart/controllers/cart_controller.dart';
-import '../data/pharmacy_data.dart';
+import '../../cart/widgets/recommended_add_ons_sheet.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final ProductModel? product;
@@ -182,7 +182,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               // 11. Product Information Section
               _buildProductInformationSection(),
 
-              // 12. Ratings and Reviews Breakdown
+              // 12. Payment, Returns & Expiry (Screenshot 2)
+              _buildPaymentReturnsExpirySection(),
+
+              // 13. 4 Feature Badges (Screenshot 2)
+              _buildFeatureBadges(),
+
+              // 14. Stomach health story survey (Screenshot 2)
+              _buildStomachHealthSurvey(),
+
+              // 15. Other information (Screenshot 3)
+              _buildOtherInformationSection(),
+
+              // 16. Ratings and Reviews Breakdown
               _buildRatingsAndReviewsSection(),
             ],
           ),
@@ -194,6 +206,347 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             bottom: 0,
             child: _buildBottomStickyBar(cartController),
           ),
+        ],
+      ),
+    );
+  }
+
+  void _showRecommendedAddOnsModal(BuildContext context, CartController cartController) {
+    final addOns = [
+      {'name': 'Himalaya Men Pimple Clear Neem Face Wash', 'pack': '100 ml Face Wash', 'rating': '4.1', 'count': '335', 'price': '183', 'mrp': '189', 'off': '3%', 'img': 'https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=300&q=80'},
+      {'name': 'Himalaya Natural Glow Kesar Face Wash', 'pack': '50 ml Face Wash', 'rating': '4.0', 'count': '39', 'price': '87.2', 'mrp': '90', 'off': '3%', 'chip': '78.5', 'img': 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80'},
+      {'name': 'Himalaya Tan Removal Orange Face Wash', 'pack': '100 ml Face Wash', 'rating': '4.2', 'count': '712', 'price': '220', 'off': '10%', 'chip': '198', 'img': 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=300&q=80'},
+      {'name': 'Dettol Original Germ Protection Mega Saver Pack of Bathing Soap Bar', 'pack': '4 Packs', 'rating': '4.3', 'count': '186', 'price': '160', 'mrp': '180', 'off': '11%', 'img': 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&w=300&q=80'},
+    ];
+
+    Get.bottomSheet(
+      Container(
+        height: MediaQuery.of(context).size.height * 0.82,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 16, 16, 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Recommended for you',
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: Color(0xFF0F172A)),
+                  ),
+                  InkWell(
+                    onTap: () => Get.back(),
+                    customBorder: const CircleBorder(),
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: const BoxDecoration(color: Color(0xFFF1F5F9), shape: BoxShape.circle),
+                      child: const Icon(Icons.close, size: 18, color: Color(0xFF0F172A)),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(height: 1),
+            Expanded(
+              child: ListView.separated(
+                padding: const EdgeInsets.all(16),
+                itemCount: addOns.length,
+                separatorBuilder: (context, index) => const Divider(height: 24),
+                itemBuilder: (context, index) {
+                  final item = addOns[index];
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 75,
+                        height: 95,
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF8FAFC),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: const Color(0xFFE2E8F0)),
+                        ),
+                        child: Center(
+                          child: CachedNetworkImage(
+                            imageUrl: item['img']!,
+                            fit: BoxFit.contain,
+                            errorWidget: (context, url, error) => const Icon(Icons.spa, color: Colors.green),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item['name']!,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: Color(0xFF0F172A)),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(item['pack']!, style: const TextStyle(fontSize: 10.5, color: Color(0xFF64748B))),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                                  decoration: BoxDecoration(color: const Color(0xFF16A34A), borderRadius: BorderRadius.circular(3)),
+                                  child: Row(
+                                    children: [
+                                      Text(item['rating']!, style: const TextStyle(color: Colors.white, fontSize: 9.5, fontWeight: FontWeight.bold)),
+                                      const SizedBox(width: 2),
+                                      const Icon(Icons.star, size: 9, color: Colors.white),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 4),
+                                Text('${item['count']} ratings', style: const TextStyle(fontSize: 9.5, color: Color(0xFF94A3B8))),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            Text('₹${item['price']}', style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w800, color: Color(0xFF0F172A))),
+                            const SizedBox(height: 8),
+                            SizedBox(
+                              width: 85,
+                              height: 30,
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  Get.snackbar(
+                                    'Added to Cart',
+                                    '${item['name']} added.',
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: AppColors.textPrimary,
+                                    colorText: Colors.white,
+                                    margin: const EdgeInsets.all(16),
+                                  );
+                                },
+                                style: OutlinedButton.styleFrom(
+                                  foregroundColor: AppColors.primary,
+                                  side: const BorderSide(color: AppColors.primary),
+                                  padding: EdgeInsets.zero,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                                ),
+                                child: const Text('ADD', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800)),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                border: Border(top: BorderSide(color: Color(0xFFE2E8F0))),
+              ),
+              child: SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.back();
+                    Get.toNamed(AppRoutes.cart);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFFF523B),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    elevation: 0,
+                  ),
+                  child: const Text('Skip & continue', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 14)),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      isScrollControlled: true,
+    );
+  }
+
+  Widget _buildPaymentReturnsExpirySection() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFCF9FE), // Soft lavender tint
+        borderRadius: AppDimensions.rounded16,
+        border: Border.all(color: const Color(0xFFF3E8FF)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Payment, Returns & Expiry',
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Color(0xFF6B21A8)),
+          ),
+          const SizedBox(height: 14),
+          _buildInfoItem(
+            icon: Icons.payments_outlined,
+            iconColor: const Color(0xFF16A34A),
+            title: 'Cash on delivery available',
+            sub: 'Get your product first, then pay us once you\'re sure about your order',
+          ),
+          const SizedBox(height: 14),
+          _buildInfoItem(
+            icon: Icons.replay_circle_filled_rounded,
+            iconColor: const Color(0xFF0D9488),
+            title: '7 day free return',
+            sub: 'Easily return the product if you don\'t need it anymore',
+          ),
+          const SizedBox(height: 14),
+          _buildInfoItem(
+            icon: Icons.calendar_month_rounded,
+            iconColor: const Color(0xFF2563EB),
+            title: 'Product expires after Apr, 2028',
+            sub: 'Expiry date may vary by batch. All batches have a 3-month shelf life from the date of dispatch.',
+          ),
+          const SizedBox(height: 14),
+          _buildInfoItem(
+            icon: Icons.receipt_long_rounded,
+            iconColor: const Color(0xFF059669),
+            title: 'Price Info',
+            sub: 'MRP may vary by batch. Any additional charges, including packaging, handling, shipping or delivery charges, will be clearly disclosed before purchase.',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoItem({required IconData icon, required Color iconColor, required String title, required String sub}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(6),
+          decoration: BoxDecoration(color: iconColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(6)),
+          child: Icon(icon, size: 20, color: iconColor),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: Color(0xFF0F172A))),
+              const SizedBox(height: 2),
+              Text(sub, style: const TextStyle(fontSize: 11, color: Color(0xFF64748B), height: 1.3)),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFeatureBadges() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        children: [
+          _buildMiniBadge(Icons.inventory_2_outlined, const Color(0xFF16A34A), '100%\ngenuine\nproducts'),
+          const SizedBox(width: 8),
+          _buildMiniBadge(Icons.account_balance_wallet_outlined, const Color(0xFF2563EB), 'Safe &\nsecure\npayments'),
+          const SizedBox(width: 8),
+          _buildMiniBadge(Icons.markunread_mailbox_outlined, const Color(0xFFEA580C), 'No contact\ndelivery'),
+          const SizedBox(width: 8),
+          _buildMiniBadge(Icons.sanitizer_outlined, const Color(0xFF0284C7), 'Fully\nsanitized\nfacilities'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMiniBadge(IconData icon, Color color, String label) {
+    return Expanded(
+      child: Container(
+        height: 90,
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF8FAFC),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: const Color(0xFFE2E8F0)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(icon, color: color, size: 20),
+            Text(label, style: const TextStyle(fontSize: 9.5, fontWeight: FontWeight.w600, color: Color(0xFF334155), height: 1.15)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStomachHealthSurvey() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF0F9FF),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0xFFBAE6FD)),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(color: Color(0xFF0284C7), shape: BoxShape.circle),
+            child: const Icon(Icons.help_outline_rounded, color: Colors.white, size: 18),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text('Share your stomach health story', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w800, color: Color(0xFF0F172A))),
+                SizedBox(height: 2),
+                Text('Take this 2 minutes survey to share how you manage stomach health. Your insights help us serve you better', style: TextStyle(fontSize: 10.5, color: Color(0xFF64748B))),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(color: const Color(0xFFFF523B), borderRadius: BorderRadius.circular(6)),
+            child: const Text('Next', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOtherInformationSection() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              Text('Other information', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Color(0xFF0F172A))),
+              Icon(Icons.chevron_right_rounded, color: Color(0xFF64748B)),
+            ],
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'A licensed vendor partner from your nearest location will deliver Himalaya Herbals Purifying Neem Face Wash | For Acne & Pimple Relief | Paraben and Soap Free Face Care Product | Turmeric. Once the pharmacy accepts your order, the details of the pharmacy will be shared with you.',
+            style: TextStyle(fontSize: 11.5, color: Color(0xFF475569), height: 1.35),
+          ),
+          const SizedBox(height: 12),
+          const Text('Marketer details', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Color(0xFF0F172A))),
+          const Text('Name: Himalaya Wellness Company\nAddress: Makali, Bengaluru 562162, India\nCountry of origin: India', style: TextStyle(fontSize: 11, color: Color(0xFF64748B), height: 1.3)),
+          const SizedBox(height: 12),
+          const Text('In case of any issues, contact us', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Color(0xFF0F172A))),
+          const Text('Email ID: care@jeevancare.com\nPhone Number: 1800-266-4357\nAddress: Presidency Building, Station Road, Buxar', style: TextStyle(fontSize: 11, color: Color(0xFF64748B), height: 1.3)),
+          const SizedBox(height: 14),
         ],
       ),
     );
@@ -553,7 +906,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 width: 120,
                 height: 38,
                 child: ElevatedButton(
-                  onPressed: () => cartController.addToCart(_activeProduct),
+                  onPressed: () {
+                    cartController.addToCart(_activeProduct);
+                    showRecommendedAddOnsSheet(context);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFFF523B), // Vibrant red-orange
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -1350,7 +1706,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     width: 140,
                     height: 44,
                     child: ElevatedButton(
-                      onPressed: () => cartController.addToCart(_activeProduct),
+                      onPressed: () {
+                        cartController.addToCart(_activeProduct);
+                        showRecommendedAddOnsSheet(context);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFFF523B),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

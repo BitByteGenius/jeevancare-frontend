@@ -8,8 +8,35 @@ class CartController extends GetxController {
   static CartController get to => Get.find<CartController>();
 
   final RxMap<String, CartItemModel> _items = <String, CartItemModel>{}.obs;
+  final RxBool isCarePlanActive = false.obs;
+  final RxString selectedAddress = 'Buxar'.obs;
+  final RxInt selectedDeliverySlot = 0.obs;
 
   Map<String, CartItemModel> get items => _items;
+
+  @override
+  void onInit() {
+    super.onInit();
+    // Pre-seed cart with Himalaya Purifying Neem Face Wash to match screenshot
+    if (_items.isEmpty) {
+      const defaultProduct = ProductModel(
+        id: 'himalaya_neem_400',
+        name: 'Himalaya Herbals Purifying Neem Face ...',
+        packSize: '400 ml face wash',
+        rating: 4.5,
+        ratingCount: 1240,
+        imageUrl: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80',
+        price: 557,
+        mrp: 599,
+        discountPercent: 7,
+        deliveryEta: 'Delivering by 24 - 26 september',
+        carePlanPrice: 490,
+        carePlanThreshold: 1200,
+        category: 'skin_care',
+      );
+      _items[defaultProduct.id] = CartItemModel(product: defaultProduct, quantity: 1);
+    }
+  }
 
   int get totalItemCount {
     int count = 0;
@@ -24,6 +51,9 @@ class CartController extends GetxController {
     for (final item in _items.values) {
       total += item.totalPrice;
     }
+    if (isCarePlanActive.value) {
+      total += 165.0; // 3 months care plan cost
+    }
     return total;
   }
 
@@ -32,10 +62,13 @@ class CartController extends GetxController {
     for (final item in _items.values) {
       total += item.totalMrp;
     }
+    if (isCarePlanActive.value) {
+      total += 549.0;
+    }
     return total;
   }
 
-  double get totalSavings => totalMrp - subtotal;
+  double get totalSavings => totalMrp - subtotal + (isCarePlanActive.value ? 67.0 : 0.0);
 
   int getQuantity(String productId) {
     return _items[productId]?.quantity ?? 0;
@@ -62,6 +95,15 @@ class CartController extends GetxController {
     );
   }
 
+  void setQuantity(String productId, int quantity) {
+    if (quantity <= 0) {
+      removeFromCart(productId);
+    } else if (_items.containsKey(productId)) {
+      _items[productId]!.quantity = quantity;
+      _items.refresh();
+    }
+  }
+
   void decrementQuantity(String productId) {
     if (!_items.containsKey(productId)) return;
 
@@ -80,4 +122,25 @@ class CartController extends GetxController {
   void clearCart() {
     _items.clear();
   }
+
+  void toggleCarePlan() {
+    isCarePlanActive.value = !isCarePlanActive.value;
+  }
+
+  void addCarePlan() {
+    isCarePlanActive.value = true;
+    Get.rawSnackbar(
+      messageText: const Text(
+        'Care Plan added! Save extra ₹67 on this order',
+        style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600),
+      ),
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Color(0xFF7A2326),
+      duration: const Duration(seconds: 3),
+      borderRadius: 8,
+      margin: const EdgeInsets.all(16),
+      icon: const Icon(Icons.verified_rounded, color: Colors.white, size: 20),
+    );
+  }
 }
+
