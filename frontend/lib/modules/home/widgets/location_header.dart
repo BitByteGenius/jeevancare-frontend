@@ -208,30 +208,33 @@ class LocationHeader extends StatelessWidget {
             const SizedBox(height: 16),
             ...cities.map((loc) {
               final isSelected = controller.selectedCity.value == loc['city'];
-              return ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: Icon(
-                  Icons.location_on_outlined,
-                  color: isSelected ? AppColors.primary : AppColors.textTertiary,
-                ),
-                title: Text(
-                  loc['city']!,
-                  style: AppTypography.subtitle.copyWith(
-                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                    color: isSelected ? AppColors.primary : AppColors.textPrimary,
+              return Material(
+                color: Colors.transparent,
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(
+                    Icons.location_on_outlined,
+                    color: isSelected ? AppColors.primary : AppColors.textTertiary,
                   ),
+                  title: Text(
+                    loc['city']!,
+                    style: AppTypography.subtitle.copyWith(
+                      fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                      color: isSelected ? AppColors.primary : AppColors.textPrimary,
+                    ),
+                  ),
+                  subtitle: Text(
+                    loc['locality']!,
+                    style: AppTypography.caption,
+                  ),
+                  trailing: isSelected
+                      ? const Icon(Icons.check_circle_rounded, color: AppColors.primary)
+                      : null,
+                  onTap: () {
+                    controller.setCity(loc['city']!, loc['locality']!);
+                    Get.back();
+                  },
                 ),
-                subtitle: Text(
-                  loc['locality']!,
-                  style: AppTypography.caption,
-                ),
-                trailing: isSelected
-                    ? const Icon(Icons.check_circle_rounded, color: AppColors.primary)
-                    : null,
-                onTap: () {
-                  controller.setCity(loc['city']!, loc['locality']!);
-                  Get.back();
-                },
               );
             }),
             const SizedBox(height: 10),

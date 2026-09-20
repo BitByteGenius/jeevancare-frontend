@@ -14,6 +14,7 @@ import '../widgets/product_horizontal_list.dart';
 import '../widgets/pet_care_section.dart';
 import '../widgets/assessment_banner.dart';
 import '../widgets/healthy_foods_grid.dart';
+import '../widgets/lab_tests_package_explorer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

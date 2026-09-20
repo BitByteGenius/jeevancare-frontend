@@ -87,17 +87,21 @@ class ProfileScreen extends StatelessWidget {
   Widget _buildActionItem(String title, IconData icon, VoidCallback onTap) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
-      decoration: BoxDecoration(
+      child: Material(
         color: AppColors.surface,
         borderRadius: AppDimensions.rounded12,
-        border: Border.all(color: AppColors.borderLight),
-      ),
-      child: ListTile(
-        onTap: onTap,
-        leading: Icon(icon, color: AppColors.primary, size: 22),
-        title: Text(title, style: AppTypography.subtitle.copyWith(fontSize: 13.5)),
-        trailing: const Icon(Icons.chevron_right_rounded, color: AppColors.textTertiary, size: 20),
-        dense: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: AppDimensions.rounded12,
+          side: const BorderSide(color: AppColors.borderLight),
+        ),
+        child: ListTile(
+          onTap: onTap,
+          shape: RoundedRectangleBorder(borderRadius: AppDimensions.rounded12),
+          leading: Icon(icon, color: AppColors.primary, size: 22),
+          title: Text(title, style: AppTypography.subtitle.copyWith(fontSize: 13.5)),
+          trailing: const Icon(Icons.chevron_right_rounded, color: AppColors.textTertiary, size: 20),
+          dense: true,
+        ),
       ),
     );
   }
