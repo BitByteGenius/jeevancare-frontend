@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../../app/routes/app_routes.dart';
 import '../../../app/theme/app_dimensions.dart';
 import '../../../app/theme/app_typography.dart';
 import '../controllers/pharmacy_controller.dart';
@@ -17,7 +19,7 @@ class PharmacyQuickActions extends StatelessWidget {
           // Order with prescription
           Expanded(
             child: InkWell(
-              onTap: () => controller.showPrescriptionUploadSheet(context),
+              onTap: () => Get.toNamed(AppRoutes.uploadPrescription),
               borderRadius: AppDimensions.rounded12,
               child: Container(
                 height: 96,

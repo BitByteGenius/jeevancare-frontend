@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
 import '../../../app/routes/app_routes.dart';
-import '../../../app/theme/app_colors.dart';
 import '../../../data/models/product_model.dart';
 import '../controllers/cart_controller.dart';
 

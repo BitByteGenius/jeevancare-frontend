@@ -14,10 +14,7 @@ class CartController extends GetxController {
 
   Map<String, CartItemModel> get items => _items;
 
-  @override
-  void onInit() {
-    super.onInit();
-    // Pre-seed cart with Himalaya Purifying Neem Face Wash to match screenshot
+  void seedDefaultCartIfEmpty() {
     if (_items.isEmpty) {
       const defaultProduct = ProductModel(
         id: 'himalaya_neem_400',

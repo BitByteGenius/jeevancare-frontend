@@ -9,6 +9,7 @@ import '../../modules/pharmacy/screens/pharmacy_screen.dart';
 import '../../modules/lab_tests/screens/lab_tests_screen.dart';
 import '../../modules/care_plan/screens/care_plan_screen.dart';
 import '../../modules/profile/screens/profile_screen.dart';
+import '../../modules/pharmacy/screens/upload_prescription_screen.dart';
 
 import '../../modules/consults/screens/consults_screen.dart';
 import '../../modules/pharmacy/screens/categories_screen.dart';
@@ -64,6 +65,10 @@ class AppPages {
     GetPage(
       name: AppRoutes.profile,
       page: () => const ProfileScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.uploadPrescription,
+      page: () => const UploadPrescriptionScreen(),
     ),
   ];
 }

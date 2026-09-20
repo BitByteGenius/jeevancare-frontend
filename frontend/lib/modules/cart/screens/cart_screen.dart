@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
-import '../../../app/routes/app_routes.dart';
 import '../../../app/theme/app_colors.dart';
+import '../../../data/models/cart_item_model.dart';
 import '../../../data/models/product_model.dart';
 import '../controllers/cart_controller.dart';
 import '../widgets/care_plan_upsell_sheet.dart';
@@ -258,7 +258,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   // Cart Item Card (Screenshot 5)
-  Widget _buildCartItemCard(cartItem, CartController cartController) {
+  Widget _buildCartItemCard(CartItemModel cartItem, CartController cartController) {
     final p = cartItem.product;
 
     return Padding(

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../app/theme/app_colors.dart';
-import '../../../app/theme/app_dimensions.dart';
-import '../../../app/theme/app_typography.dart';
-import '../../home/widgets/upload_prescription_sheet.dart';
+import '../../../core/widgets/sign_in_sheet.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -10,97 +9,282 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('My Account', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17)),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GestureDetector(
+            onTap: () => Get.back(),
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFFF8FAFC),
+                shape: BoxShape.circle,
+                border: Border.all(color: const Color(0xFFE2E8F0)),
+              ),
+              child: const Icon(Icons.arrow_back, size: 20, color: Color(0xFF0F172A)),
+            ),
+          ),
+        ),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.zero,
         children: [
-          // User Card
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: AppColors.surface,
-              borderRadius: AppDimensions.rounded16,
-              border: Border.all(color: AppColors.borderLight),
-              boxShadow: AppDimensions.subtleShadow,
-            ),
-            child: Row(
+          // Header Section
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 54,
-                  height: 54,
-                  decoration: const BoxDecoration(
-                    color: AppColors.primaryLight,
-                    shape: BoxShape.circle,
+                const Text(
+                  'Hi there!',
+                  style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.w900,
+                    color: Color(0xFF0F172A),
+                    letterSpacing: -0.5,
                   ),
-                  child: const Center(
-                    child: Text(
-                      'JC',
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  'Sign in to start your healthcare journey',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF64748B),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                // Coral Red "Sign in" Button (Screenshots 1 & 4)
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    onPressed: () => showSignInBottomSheet(context),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFF5247),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      elevation: 0,
+                    ),
+                    child: const Text(
+                      'Sign in',
                       style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('JeevanCare User', style: AppTypography.headline2.copyWith(fontSize: 16)),
-                      const SizedBox(height: 2),
-                      Text('+91 98765 43210 • Verified', style: AppTypography.caption),
-                    ],
+              ],
+            ),
+          ),
+
+          const Divider(thickness: 8, color: Color(0xFFF1F5F9), height: 8),
+
+          // Menu List (Screenshots 1 & 4)
+          _buildMenuItem(
+            icon: Icons.shopping_bag_rounded,
+            iconColor: const Color(0xFFEC4899),
+            title: 'My orders',
+            onTap: () => showSignInBottomSheet(context),
+          ),
+          _buildMenuItem(
+            icon: Icons.assignment_rounded,
+            iconColor: const Color(0xFF2563EB),
+            title: 'My lab tests',
+            onTap: () => showSignInBottomSheet(context),
+          ),
+          _buildMenuItem(
+            icon: Icons.vaccines_rounded,
+            iconColor: const Color(0xFF0284C7),
+            title: 'My vaccines',
+            onTap: () => showSignInBottomSheet(context),
+          ),
+          _buildMenuItem(
+            icon: Icons.medical_services_rounded,
+            iconColor: const Color(0xFF059669),
+            title: 'My consultations',
+            onTap: () => showSignInBottomSheet(context),
+          ),
+          _buildMenuItem(
+            icon: Icons.medical_information_rounded,
+            iconColor: const Color(0xFFEA580C),
+            title: 'Health Records & Insights',
+            badgeText: 'Beta',
+            badgeBgColor: const Color(0xFFDBEAFE),
+            badgeTextColor: const Color(0xFF1E40AF),
+            onTap: () => showSignInBottomSheet(context),
+          ),
+          _buildMenuItem(
+            icon: Icons.thumb_up_alt_rounded,
+            iconColor: const Color(0xFF2563EB),
+            title: 'Rate your recent purchases',
+            onTap: () => showSignInBottomSheet(context),
+          ),
+          _buildMenuItem(
+            icon: Icons.credit_card_rounded,
+            iconColor: const Color(0xFF0284C7),
+            title: 'Manage payment methods',
+            onTap: () => showSignInBottomSheet(context),
+          ),
+          _buildMenuItem(
+            icon: Icons.auto_awesome_rounded,
+            iconColor: const Color(0xFF8B5CF6),
+            title: 'NeuCoins',
+            onTap: () => showSignInBottomSheet(context),
+          ),
+          _buildMenuItem(
+            icon: Icons.document_scanner_rounded,
+            iconColor: const Color(0xFFDB2777),
+            title: 'Scan your medicines',
+            badgeText: 'New',
+            badgeBgColor: const Color(0xFFFCE7F3),
+            badgeTextColor: const Color(0xFF9D174D),
+            onTap: () => showSignInBottomSheet(context),
+          ),
+          _buildMenuItem(
+            icon: Icons.storefront_rounded,
+            iconColor: const Color(0xFFD97706),
+            title: 'JeevanCare Stores',
+            badgeText: 'New',
+            badgeBgColor: const Color(0xFFFEF3C7),
+            badgeTextColor: const Color(0xFF92400E),
+            onTap: () => showSignInBottomSheet(context),
+          ),
+
+          const Divider(thickness: 8, color: Color(0xFFF1F5F9), height: 8),
+
+          // Secondary Section: Need help, Settings, About us
+          _buildSimpleMenuItem('Need help?', () {
+            Get.rawSnackbar(
+              messageText: const Text('24x7 Customer Helpline: 1800-266-4357', style: TextStyle(color: Colors.white)),
+              backgroundColor: AppColors.textPrimary,
+              borderRadius: 8,
+              margin: const EdgeInsets.all(16),
+            );
+          }),
+          _buildSimpleMenuItem('Settings', () {}),
+          _buildSimpleMenuItem('About us', () {}),
+
+          // Footer Banner (Screenshots 1 & 4)
+          Container(
+            width: double.infinity,
+            color: const Color(0xFFF1F5F9),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 32),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  'Making healthcare',
+                  style: TextStyle(
+                    fontSize: 13.5,
+                    color: Color(0xFF64748B),
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.edit_outlined, size: 20, color: AppColors.textTertiary),
+                SizedBox(height: 2),
+                Text(
+                  'Understandable, Accessible & Affordable',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF334155),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Made with ❤️ by JeevanCare',
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    color: Color(0xFF64748B),
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
-
-          Text('Healthcare & Orders', style: AppTypography.sectionTitle.copyWith(fontSize: 14)),
-          const SizedBox(height: 8),
-          _buildActionItem('My Medicine Orders', Icons.local_shipping_outlined, () {}),
-          _buildActionItem('Lab Test Bookings', Icons.biotech_outlined, () {}),
-          _buildActionItem('Doctor Consultations', Icons.medical_services_outlined, () {}),
-          _buildActionItem('Prescriptions & Records', Icons.receipt_long_outlined, () => UploadPrescriptionSheet.show(context)),
-
-          const SizedBox(height: 16),
-          Text('Settings & Help', style: AppTypography.sectionTitle.copyWith(fontSize: 14)),
-          const SizedBox(height: 8),
-          _buildActionItem('Saved Addresses', Icons.location_on_outlined, () {}),
-          _buildActionItem('Customer Support & FAQ', Icons.headset_mic_outlined, () {}),
-          _buildActionItem('Terms & Privacy Policy', Icons.policy_outlined, () {}),
         ],
       ),
     );
   }
 
-  Widget _buildActionItem(String title, IconData icon, VoidCallback onTap) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      child: Material(
-        color: AppColors.surface,
-        borderRadius: AppDimensions.rounded12,
-        shape: RoundedRectangleBorder(
-          borderRadius: AppDimensions.rounded12,
-          side: const BorderSide(color: AppColors.borderLight),
+  Widget _buildMenuItem({
+    required IconData icon,
+    required Color iconColor,
+    required String title,
+    String? badgeText,
+    Color? badgeBgColor,
+    Color? badgeTextColor,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+        child: Row(
+          children: [
+            Icon(icon, size: 22, color: iconColor),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Row(
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 14.5,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF0F172A),
+                    ),
+                  ),
+                  if (badgeText != null) ...[
+                    const SizedBox(width: 8),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: badgeBgColor ?? const Color(0xFFE2E8F0),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        badgeText,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w800,
+                          color: badgeTextColor ?? const Color(0xFF0F172A),
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            const Icon(Icons.chevron_right_rounded, size: 20, color: Color(0xFF94A3B8)),
+          ],
         ),
-        child: ListTile(
-          onTap: onTap,
-          shape: RoundedRectangleBorder(borderRadius: AppDimensions.rounded12),
-          leading: Icon(icon, color: AppColors.primary, size: 22),
-          title: Text(title, style: AppTypography.subtitle.copyWith(fontSize: 13.5)),
-          trailing: const Icon(Icons.chevron_right_rounded, color: AppColors.textTertiary, size: 20),
-          dense: true,
+      ),
+    );
+  }
+
+  Widget _buildSimpleMenuItem(String title, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 14.5,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF0F172A),
+              ),
+            ),
+            const Icon(Icons.chevron_right_rounded, size: 20, color: Color(0xFF94A3B8)),
+          ],
         ),
       ),
     );
