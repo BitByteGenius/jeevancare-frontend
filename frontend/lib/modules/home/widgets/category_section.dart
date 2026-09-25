@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
+import '../../../app/routes/app_routes.dart';
 import '../../../app/theme/app_colors.dart';
 import '../../../app/theme/app_dimensions.dart';
 import '../../../app/theme/app_typography.dart';
@@ -32,7 +33,7 @@ class CategorySection extends StatelessWidget {
                   style: AppTypography.sectionTitle.copyWith(fontSize: 16),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => Get.toNamed(AppRoutes.categories),
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
                     minimumSize: Size.zero,

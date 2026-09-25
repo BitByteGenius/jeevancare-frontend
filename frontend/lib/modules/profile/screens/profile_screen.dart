@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../app/theme/app_colors.dart';
 import '../../../core/widgets/sign_in_sheet.dart';
+import '../../dashboard/controllers/dashboard_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -16,7 +17,13 @@ class ProfileScreen extends StatelessWidget {
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
-            onTap: () => Get.back(),
+            onTap: () {
+              if (Navigator.of(context).canPop()) {
+                Get.back();
+              } else if (Get.isRegistered<DashboardController>()) {
+                Get.find<DashboardController>().changeTab(0);
+              }
+            },
             child: Container(
               decoration: BoxDecoration(
                 color: const Color(0xFFF8FAFC),

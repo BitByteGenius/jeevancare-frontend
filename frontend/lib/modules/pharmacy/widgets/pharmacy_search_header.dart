@@ -25,13 +25,15 @@ class PharmacySearchHeader extends StatelessWidget {
         children: [
           // Search Input Box
           Expanded(
-            child: Container(
-              height: 44,
-              decoration: BoxDecoration(
-                color: const Color(0xFFF8FAFC),
-                borderRadius: BorderRadius.circular(22),
-                border: Border.all(color: const Color(0xFFCBD5E1), width: 1.2),
-              ),
+            child: GestureDetector(
+              onTap: () => Get.toNamed(AppRoutes.search),
+              child: Container(
+                height: 44,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF8FAFC),
+                  borderRadius: BorderRadius.circular(22),
+                  border: Border.all(color: const Color(0xFFCBD5E1), width: 1.2),
+                ),
               child: Row(
                 children: [
                   const SizedBox(width: 14),
@@ -75,6 +77,7 @@ class PharmacySearchHeader extends StatelessWidget {
                 ],
               ),
             ),
+          ),
           ),
           const SizedBox(width: 10),
 

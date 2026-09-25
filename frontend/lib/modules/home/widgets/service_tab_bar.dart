@@ -52,6 +52,8 @@ class ServiceTabBar extends StatelessWidget {
                       final dash = Get.find<DashboardController>();
                       if (tab.id == 'pharmacy') {
                         dash.changeTab(1);
+                      } else if (tab.id == 'lab_tests') {
+                        dash.changeTab(2);
                       } else if (tab.id == 'for_you') {
                         dash.changeTab(0);
                       }

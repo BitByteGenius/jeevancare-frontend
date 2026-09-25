@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../cart/controllers/cart_controller.dart';
+import '../controllers/home_controller.dart';
 
 class ChangeLocationScreen extends StatefulWidget {
   const ChangeLocationScreen({super.key});
@@ -46,6 +47,12 @@ class _ChangeLocationScreenState extends State<ChangeLocationScreen> {
   void _onSelectLocation(String locationName) {
     if (Get.isRegistered<CartController>()) {
       CartController.to.selectedAddress.value = locationName;
+    }
+    if (Get.isRegistered<HomeController>()) {
+      final homeController = Get.find<HomeController>();
+      final cityName = _selectedCity ?? locationName.split(',').first.trim();
+      homeController.selectedCity.value = cityName;
+      homeController.selectedLocality.value = locationName;
     }
     Get.back();
     Get.rawSnackbar(

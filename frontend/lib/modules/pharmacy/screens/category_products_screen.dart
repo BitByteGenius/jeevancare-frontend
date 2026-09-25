@@ -37,8 +37,12 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
   @override
   Widget build(BuildContext context) {
     final cartController = CartController.to;
-    final isSkinCare = widget.categoryTitle.toLowerCase().contains('skin') ||
-        widget.categoryTitle.toLowerCase().contains('face');
+    final effectiveTitle = (Get.arguments is String && (Get.arguments as String).isNotEmpty)
+        ? Get.arguments as String
+        : widget.categoryTitle;
+
+    final isSkinCare = effectiveTitle.toLowerCase().contains('skin') ||
+        effectiveTitle.toLowerCase().contains('face');
     var rawProducts = isSkinCare
         ? List<ProductModel>.from(PharmacyData.skinCareProducts)
         : List<ProductModel>.from(PharmacyData.periodPmsProducts);
@@ -64,7 +68,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
           icon: const Icon(Icons.arrow_back, color: Color(0xFF0F172A)),
         ),
         title: Text(
-          widget.categoryTitle,
+          effectiveTitle,
           style: const TextStyle(
             color: Color(0xFF0F172A),
             fontSize: 17,

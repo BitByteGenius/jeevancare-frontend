@@ -117,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                   () => ProductHorizontalList(
                     title: 'Cold & Cough Products',
                     showAdBadge: true,
-                    products: controller.hormonalSupport,
+                    products: controller.hormonalSupport.toList(),
                   ),
                 ),
               ),
@@ -132,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                 child: Obx(
                   () => ProductHorizontalList(
                     title: 'Intimate hygiene & grooming',
-                    products: controller.intimateHygiene,
+                    products: controller.intimateHygiene.toList(),
                   ),
                 ),
               ),
@@ -143,7 +143,7 @@ class HomeScreen extends StatelessWidget {
                   () => ProductHorizontalList(
                     title: 'Get additional 25% off',
                     subtitle: 'Use code : SAVE25',
-                    products: controller.menstrualCare,
+                    products: controller.menstrualCare.toList(),
                   ),
                 ),
               ),
@@ -159,7 +159,7 @@ class HomeScreen extends StatelessWidget {
                   () => ProductHorizontalList(
                     title: 'Top skin care products',
                     showAdBadge: true,
-                    products: controller.topSkinCare,
+                    products: controller.topSkinCare.toList(),
                   ),
                 ),
               ),
@@ -169,7 +169,7 @@ class HomeScreen extends StatelessWidget {
                 child: Obx(
                   () => ProductHorizontalList(
                     title: 'Deals of the day',
-                    products: controller.dealsOfTheDay,
+                    products: controller.dealsOfTheDay.toList(),
                   ),
                 ),
               ),
@@ -184,7 +184,7 @@ class HomeScreen extends StatelessWidget {
                 child: Obx(
                   () => ProductHorizontalList(
                     title: 'Pet care deals',
-                    products: controller.petCareDeals,
+                    products: controller.petCareDeals.toList(),
                   ),
                 ),
               ),
@@ -204,7 +204,7 @@ class HomeScreen extends StatelessWidget {
                 child: Obx(
                   () => ProductHorizontalList(
                     title: 'Best deals on protein supplements',
-                    products: controller.proteinSupplements,
+                    products: controller.proteinSupplements.toList(),
                   ),
                 ),
               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
-import '../../../app/theme/app_colors.dart';
+import '../../../app/routes/app_routes.dart';
 import '../../../data/models/cart_item_model.dart';
 import '../../../data/models/product_model.dart';
 import '../controllers/cart_controller.dart';
@@ -124,7 +124,7 @@ class _CartScreenState extends State<CartScreen> {
         ),
         centerTitle: true,
         title: Obx(() => GestureDetector(
-              onTap: () => _showLocationPicker(context),
+              onTap: () => Get.toNamed(AppRoutes.changeLocation),
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
@@ -154,14 +154,7 @@ class _CartScreenState extends State<CartScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.search, color: Color(0xFF0F172A)),
-            onPressed: () {
-              Get.rawSnackbar(
-                messageText: const Text('Search in cart or add more products', style: TextStyle(color: Colors.white)),
-                backgroundColor: AppColors.textPrimary,
-                borderRadius: 8,
-                margin: const EdgeInsets.all(16),
-              );
-            },
+            onPressed: () => Get.toNamed(AppRoutes.search),
           ),
           const SizedBox(width: 4),
         ],
@@ -792,7 +785,7 @@ class _CartScreenState extends State<CartScreen> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: Container(
-                            height: 105,
+                            height: 90,
                             width: double.infinity,
                             color: const Color(0xFFF8FAFC),
                             child: CachedNetworkImage(
@@ -1175,43 +1168,7 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  // Location Selector
-  void _showLocationPicker(BuildContext context) {
-    final cartController = CartController.to;
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-      builder: (ctx) => Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Select Delivery Location', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
-            const SizedBox(height: 14),
-            ListTile(
-              leading: const Icon(Icons.location_on, color: Color(0xFFFF5247)),
-              title: const Text('Buxar (Default)', style: TextStyle(fontWeight: FontWeight.w700)),
-              subtitle: const Text('Station Road, Buxar, Bihar 802101'),
-              onTap: () {
-                cartController.selectedAddress.value = 'Buxar';
-                Navigator.of(ctx).pop();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.location_city, color: Color(0xFF64748B)),
-              title: const Text('Patna Central', style: TextStyle(fontWeight: FontWeight.w700)),
-              subtitle: const Text('Bailey Road, Patna, Bihar 800001'),
-              onTap: () {
-                cartController.selectedAddress.value = 'Patna';
-                Navigator.of(ctx).pop();
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+
 
   void _showCheckoutOrLoginDialog(BuildContext context, CartController controller) {
     showModalBottomSheet(
